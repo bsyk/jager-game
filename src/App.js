@@ -130,8 +130,8 @@ function App() {
                   onRemovePlayer={onRemovePlayer}
                 />)
             }
-            <input type="button" value="Add Player" onClick={onAddPlayer} />
-            <input type="button" value="Done" onClick={onHidePlayers} />
+            <button type="button" onClick={onAddPlayer} >Add Player</button>
+            <button type="button" onClick={onHidePlayers} >Done</button>
           </div>
         ) : (
           /**
@@ -144,8 +144,8 @@ function App() {
                 <div>
                   { playerState.map(player => player.name).join(', ') }
                 </div>
-                <input type="button" value="Edit Players" onClick={onShowPlayers} />
-                <input type="button" value="Draw" onClick={onDraw} />
+                <button type="button" onClick={onShowPlayers} >Edit Players</button>
+                <button type="button" onClick={onDraw} >Draw</button>
               </>
             }
             { isDrawn &&
@@ -165,7 +165,7 @@ function App() {
                     )
                   }
                 </ul></div>
-                <input type="button" value="Reset" onClick={onReset} />
+                <button type="button" onClick={onReset} >Reset</button>
               </>
             }
           </div>
