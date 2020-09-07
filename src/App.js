@@ -21,7 +21,7 @@ const setLS = (key, value) => {
 function App() {
 
   const blankPlayer = { name: ''};
-  const lastPlayers = getLSOrDefault('playerList', [{ ...blankPlayer }]);
+  const lastPlayers = getLSOrDefault('playerList', [{ ...blankPlayer },{ ...blankPlayer },{ ...blankPlayer }]);
   const [playerState, setPlayerState] = useState(lastPlayers);
   const lastAllocations = localStorage.getItem('allocations');
   const [allocationState, setAllocationState] = useState(lastAllocations ? JSON.parse(lastAllocations) : []);
