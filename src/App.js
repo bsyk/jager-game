@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import PlayerInput from './PlayerInput';
+import { ShuffleOutlined, PeopleOutlined, PersonAddOutlined, DoneOutline, HighlightOffOutlined } from '@material-ui/icons';
 
 const getLSOrDefault = (key, def) => {
   const lsValue = localStorage.getItem(key);
@@ -130,8 +131,10 @@ function App() {
                   onRemovePlayer={onRemovePlayer}
                 />)
             }
-            <button type="button" onClick={onAddPlayer} >Add Player</button>
-            <button type="button" onClick={onHidePlayers} >Done</button>
+            <div className={'buttonrow'}>
+              <button type="button" onClick={onAddPlayer} ><PersonAddOutlined /></button>
+              <button type="button" onClick={onHidePlayers} ><DoneOutline /></button>
+            </div>
           </div>
         ) : (
           /**
@@ -141,11 +144,16 @@ function App() {
             {
               !isDrawn &&
               <>
+                <p>
+                  Ready to play?
+                </p>
                 <div>
                   { playerState.map(player => player.name).join(', ') }
                 </div>
-                <button type="button" onClick={onShowPlayers} >Edit Players</button>
-                <button type="button" onClick={onDraw} >Draw</button>
+                <div className={'buttonrow'}>
+                  <button type="button" onClick={onShowPlayers} ><PeopleOutlined /></button>
+                  <button type="button" onClick={onDraw} ><ShuffleOutlined /></button>
+                </div>
               </>
             }
             { isDrawn &&
@@ -165,7 +173,9 @@ function App() {
                     )
                   }
                 </ul></div>
-                <button type="button" onClick={onReset} >Reset</button>
+                <div className={'buttonrow'}>
+                  <button type="button" onClick={onReset} ><HighlightOffOutlined /></button>
+                </div>
               </>
             }
           </div>

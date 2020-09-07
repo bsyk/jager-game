@@ -13,17 +13,13 @@
   pointer-events: none;
 }
 
-.App-header {
-  background-color: #282c34;
-}
-
 body {
   background: #282c34;
 }
 
 .timeline ul {
   margin: 0;
-  margin-top: 10px;
+  margin-top: 20px;
   list-style: none;
   position: relative;
   padding: 1px 100px;
@@ -116,11 +112,12 @@ body {
   top: 70%;
 }
 
-.delete {
+button {
   color: #fb673c;
   background: none;
   border: none;
-  padding: 0;
+  padding: 0px;
+  margin: 5px;
   cursor: pointer;
 }
 
@@ -139,5 +136,9 @@ body {
 }
 
 .inputrow button.delete {
-  flex: 1;
+  flex: 0;
+}
+
+.buttonrow {
+  margin-top: 10px;
 }
