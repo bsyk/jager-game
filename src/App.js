@@ -110,63 +110,67 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={process.env.PUBLIC_URL + '/dinner.png'} className="App-logo" alt="dinner" />
-        {
-          playerShowState ? (
-            /**
-             * Edit players mode
-             */
-            <div>
-              <p>
-                Who's playing?
-              </p>
-              {
-                playerState.map((player, idx) => 
-                  <PlayerInput
-                    key={`player-${idx}`}
-                    idx={idx}
-                    player={player}
-                    onPlayerChange={onPlayerChange}
-                    onRemovePlayer={onRemovePlayer}
-                  />)
-              }
-              <input type="button" value="Add Player" onClick={onAddPlayer} />
-              <input type="button" value="Done" onClick={onHidePlayers} />
-            </div>
-          ) : (
-            /**
-             * Game mode
-             */
-            <div>
-              {
-                !isDrawn &&
-                <>
-                  <div>
-                    { playerState.map(player => player.name).join(', ') }
-                  </div>
-                  <input type="button" value="Edit Players" onClick={onShowPlayers} />
-                  <input type="button" value="Draw" onClick={onDraw} />
-                </>
-              }
-              { isDrawn &&
-                <>
+      </header>
+      {
+        playerShowState ? (
+          /**
+           * Edit players mode
+           */
+          <div>
+            <p>
+              Who's playing?
+            </p>
+            {
+              playerState.map((player, idx) => 
+                <PlayerInput
+                  key={`player-${idx}`}
+                  idx={idx}
+                  player={player}
+                  onPlayerChange={onPlayerChange}
+                  onRemovePlayer={onRemovePlayer}
+                />)
+            }
+            <input type="button" value="Add Player" onClick={onAddPlayer} />
+            <input type="button" value="Done" onClick={onHidePlayers} />
+          </div>
+        ) : (
+          /**
+           * Game mode
+           */
+          <div>
+            {
+              !isDrawn &&
+              <>
+                <div>
+                  { playerState.map(player => player.name).join(', ') }
+                </div>
+                <input type="button" value="Edit Players" onClick={onShowPlayers} />
+                <input type="button" value="Draw" onClick={onDraw} />
+              </>
+            }
+            { isDrawn &&
+              <>
+                <div className={'timeline'}><ul>
                   { allocationState.map(({ label, start, end, type }, idx) => 
-                      <div key={`player-${idx}`} className={type}>
-                        <div className={'time'}>
-                          { `${asTime(start)} - ${asTime(end)}` }
-                        </div>
-                        <div className={'label'}>
+                      <li key={`player-${idx}`}>
+                        <div className={'line'}></div>
+                        <div className={'title'}>
                           { `${label}` }
                         </div>
-                      </div>
+                        <div className={'number'}>
+                          <span>{ `${asTime(start)}` }</span>
+                          <span>{ `${asTime(end)}` }</span>
+                        </div>
+                      </li>
                     )
                   }
-                  <input type="button" value="Reset" onClick={onReset} />
-                </>
-              }
-            </div>
-          )
-        }
-      </header>
+                </ul></div>
+                <input type="button" value="Reset" onClick={onReset} />
+              </>
+            }
+          </div>
+        )
+      }
     </div>
   );
 }

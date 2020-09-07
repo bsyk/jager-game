@@ -1,5 +1,12 @@
 .App {
   text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
 }
 
 .App-logo {
@@ -9,11 +16,107 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+}
+
+body {
+  background: #282c34;
+}
+
+input {
+  margin-top: 10px;
+}
+
+.timeline ul {
+  margin: 0;
+  margin-top: 10px;
+  list-style: none;
+  position: relative;
+  padding: 1px 100px;
+  color: #fff;
+  font-size: 13px;
+  text-align: left;
+}
+
+.timeline ul:before {
+  content: "";
+  width: 1px;
+  top: 5px;
+  bottom: 5px;
+  position: absolute;
+  border-left: 2px dashed #fff;
+}
+
+.timeline ul li {
+  position: relative;
+  margin-left: 30px;
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 14px;
+  border-radius: 6px;
+  width: 100px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.08);
+}
+
+.timeline ul li:not(:first-child) {
+  margin-top: 10px;
+}
+
+.timeline ul li > div.line {
+  width: 2px;
+  height: 70%;
+  background: #fff;
+  left: -40px;
+  top: 5px;
+  position: absolute;
+}
+
+.timeline ul li > span:before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  position: absolute;
+  background: #fb673c;
+  left: -5px;
+  top: 0;
+}
+
+.timeline ul li span:after {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  position: absolute;
+  background: #fb673c;
+  left: 40px;
+  top: 15%;
+}
+
+.timeline ul li > div {
+  margin-left: 10px;
+}
+
+.timeline div .title {
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.timeline div.number {
+  height: 80%;
+}
+
+.timeline div.number span {
+  position: absolute;
+  font-size: 12px;
+  left: -75px;
+  font-weight: bold;
+}
+
+.timeline div.number span:first-child {
+  top: 0;
+}
+
+.timeline div.number span:last-child {
+  top: 70%;
 }
