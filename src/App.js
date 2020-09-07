@@ -38,7 +38,7 @@ function App() {
   };
 
   const onRemovePlayer = (e) => {
-    onUpdatePlayerList(playerState.filter((_x, i) => i !== parseInt(e.target.dataset.idx)));
+    onUpdatePlayerList(playerState.filter((_x, i) => i !== parseInt(e.currentTarget.dataset.idx)));
   };
 
   const onPlayerChange = (e) => {

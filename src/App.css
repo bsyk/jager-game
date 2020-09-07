@@ -5,7 +5,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
   color: white;
 }
 
@@ -20,10 +19,6 @@
 
 body {
   background: #282c34;
-}
-
-input {
-  margin-top: 10px;
 }
 
 .timeline ul {
@@ -119,4 +114,30 @@ input {
 
 .timeline div.number span:last-child {
   top: 70%;
+}
+
+.delete {
+  color: #fb673c;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.inputrow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.inputrow label {
+  flex: 2;
+}
+
+.inputrow input.name {
+  width: 50%;
+}
+
+.inputrow button.delete {
+  flex: 1;
 }

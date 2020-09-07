@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { DeleteOutline } from '@material-ui/icons'
 
 const PlayerInput = ({ idx, player, onPlayerChange, onRemovePlayer }) => {
   const playerId = `name-${idx}`;
   return (
-    <div key={`Player-${idx}`}>
+    <div key={`Player-${idx}`} className={'inputrow'}>
       <label htmlFor={playerId}>{`Player #${idx + 1}`}</label>
       <input
         type="text"
@@ -15,7 +16,7 @@ const PlayerInput = ({ idx, player, onPlayerChange, onRemovePlayer }) => {
         value={player.name}
         onChange={onPlayerChange}
       />
-      <input type="button" data-idx={idx} value="Remove" onClick={onRemovePlayer} />
+      <button type="button" className={'delete'} data-idx={idx} onClick={onRemovePlayer} ><DeleteOutline/></button>
     </div>
   );
 };
