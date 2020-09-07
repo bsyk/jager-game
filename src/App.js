@@ -78,7 +78,7 @@ function App() {
     // Allocate a player to each window
     let allocations = windows.map((w, i) => Object.assign({}, w, { label: playerState[allocationOrder[i]].name }));
     // Split an allocation that crosses half-time
-    const halfTimeAllocation = allocations.findIndex(a => a.start < halfTime && a.end > halfTime);
+    const halfTimeAllocation = allocations.findIndex(a => a.start < halfTime && a.end> halfTime);
     if (~halfTimeAllocation) {
       const before = allocations.slice(0, halfTimeAllocation);
       const after = allocations.slice(halfTimeAllocation + 1);
@@ -93,7 +93,7 @@ function App() {
   };
 
   const shuffleInPlace = array => {
-    for (let i = array.length - 1; i > 0; i--) {
+    for (let i = array.length - 1; i> 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [array[i], array[j]] = [array[j], array[i]];
     }
@@ -132,8 +132,8 @@ function App() {
                 />)
             }
             <div className={'buttonrow'}>
-              <button type="button" onClick={onAddPlayer} ><PersonAddOutlined /></button>
-              <button type="button" onClick={onHidePlayers} ><DoneOutline /></button>
+              <button type="button" onClick={onAddPlayer}><PersonAddOutlined /></button>
+              <button type="button" onClick={onHidePlayers}><DoneOutline /></button>
             </div>
           </div>
         ) : (
@@ -151,8 +151,8 @@ function App() {
                   { playerState.map(player => player.name).join(', ') }
                 </div>
                 <div className={'buttonrow'}>
-                  <button type="button" onClick={onShowPlayers} ><PeopleOutlined /></button>
-                  <button type="button" onClick={onDraw} ><ShuffleOutlined /></button>
+                  <button type="button" onClick={onShowPlayers}><PeopleOutlined /></button>
+                  <button type="button" onClick={onDraw}><ShuffleOutlined /></button>
                 </div>
               </>
             }
@@ -174,7 +174,7 @@ function App() {
                   }
                 </ul></div>
                 <div className={'buttonrow'}>
-                  <button type="button" onClick={onReset} ><HighlightOffOutlined /></button>
+                  <button type="button" onClick={onReset}><HighlightOffOutlined /></button>
                 </div>
               </>
             }

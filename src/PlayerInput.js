@@ -16,7 +16,7 @@ const PlayerInput = ({ idx, player, onPlayerChange, onRemovePlayer }) => {
         value={player.name}
         onChange={onPlayerChange}
       />
-      <button type="button" className={'delete'} data-idx={idx} onClick={onRemovePlayer} ><DeleteOutline/></button>
+      <button type="button" className={'delete'} data-idx={idx} onClick={onRemovePlayer}><DeleteOutline/></button>
     </div>
   );
 };
