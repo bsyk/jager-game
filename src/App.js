@@ -63,7 +63,7 @@ function App() {
     // Shuffle and allocate slots
     // Create array of indexes that we can shuffle
     const playerCount = playerState.length;
-    const slotsPerPlayer = 1;
+    const slotsPerPlayer = 2;
     const slotCount = playerCount * slotsPerPlayer;
     const allocationOrder = shuffleInPlace([...Array(slotCount)].map((_, i) => i < playerCount ? i : i - playerCount));
     // What size is each window
