@@ -20,14 +20,14 @@ const setLS = (key, value) => {
 };
 
 function App() {
-
   const blankPlayer = { name: ''};
   const lastPlayers = getLSOrDefault('playerList', [{ ...blankPlayer },{ ...blankPlayer },{ ...blankPlayer }]);
   const [playerState, setPlayerState] = useState(lastPlayers);
-  const lastAllocations = localStorage.getItem('allocations');
-  const [allocationState, setAllocationState] = useState(lastAllocations ? JSON.parse(lastAllocations) : []);
-  const [playerShowState, setPlayerShowState] = useState(true);
-  const [isDrawn, setDrawn] = useState(false);
+  const lastAllocations = getLSOrDefault('allocations', []);
+  const hasAllocations = !!lastAllocations.length;
+  const [allocationState, setAllocationState] = useState(lastAllocations);
+  const [playerShowState, setPlayerShowState] = useState(!hasAllocations);
+  const [isDrawn, setDrawn] = useState(hasAllocations);
 
   const onUpdatePlayerList = playerList => {
     setLS('playerList', playerList);
@@ -89,6 +89,7 @@ function App() {
       // Insert the halfTime entry
       allocations = [...allocations.slice(0, allocations.length / 2), halfTimeEntry, ...allocations.slice(allocations.length / 2)];
     }
+    setLS('allocations', allocations);
     setAllocationState(allocations);
   };
 
