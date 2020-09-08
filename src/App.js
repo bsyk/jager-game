@@ -48,11 +48,11 @@ function App() {
     onUpdatePlayerList(updatedPlayers);
   };
 
-  const onHidePlayers = () => {
+  const onCloseEditPlayers = () => {
     setPlayerShowState(false);
   };
 
-  const onShowPlayers = () => {
+  const onEditPlayers = () => {
     setPlayerShowState(true);
   };
 
@@ -101,7 +101,6 @@ function App() {
   };
 
   const onReset = () => {
-    // TODO: Also reset allocated slots? Needed?
     setDrawn(false);
   };
 
@@ -109,7 +108,6 @@ function App() {
     const h = Math.floor(x/(60*60));
     const m = Math.floor((x-(h*60*60))/60);
     const s = x - ((h*60*60) + (m*60));
-    debugger;
     const pad = [h, m, s].map(v => (''+v).padStart(2, '0'));
     return pad.join(':');
   }
@@ -141,7 +139,7 @@ function App() {
             }
             <div className={'buttonrow'}>
               <button type="button" onClick={onAddPlayer}><PersonAddOutlined /></button>
-              <button type="button" onClick={onHidePlayers}><DoneOutline /></button>
+              <button type="button" onClick={onCloseEditPlayers}><DoneOutline /></button>
             </div>
           </div>
         ) : (
@@ -159,7 +157,7 @@ function App() {
                   { playerState.map(player => player.name).join(', ') }
                 </div>
                 <div className={'buttonrow'}>
-                  <button type="button" onClick={onShowPlayers}><PeopleOutlined /></button>
+                  <button type="button" onClick={onEditPlayers}><PeopleOutlined /></button>
                   <button type="button" onClick={onDraw}><ShuffleOutlined /></button>
                 </div>
               </>
