@@ -3,6 +3,7 @@ import { ShuffleOutlined, PeopleOutlined, PersonAddOutlined, DoneOutline, Highli
 import './App.css';
 import PlayerInput from './PlayerInput';
 import TimelineRow from './TimelineRow';
+import Dinner from './dinner.png';
 
 const getLSOrDefault = (key, def) => {
   const lsValue = localStorage.getItem(key);
@@ -109,7 +110,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={process.env.PUBLIC_URL + '/dinner.png'} className="App-logo" alt="dinner" />
+        <img src={Dinner} className="App-logo" alt="dinner" />
       </header>
       {
         playerShowState ? (
