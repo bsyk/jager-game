@@ -26,6 +26,7 @@ body {
   color: #fff;
   font-size: 13px;
   text-align: left;
+  left: 25px;
 }
 
 .timeline ul:before {
@@ -60,18 +61,6 @@ body {
   position: absolute;
 }
 
-.timeline ul li > span:before {
-  content: "";
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  border: 2px solid #fff;
-  position: absolute;
-  background: #fb673c;
-  left: -5px;
-  top: 0;
-}
-
 .timeline ul li span:after {
   content: "";
   width: 8px;
@@ -80,7 +69,7 @@ body {
   border: 2px solid #fff;
   position: absolute;
   background: #fb673c;
-  left: 40px;
+  left: 60px;
   top: 15%;
 }
 
@@ -100,7 +89,7 @@ body {
 .timeline div.number span {
   position: absolute;
   font-size: 12px;
-  left: -75px;
+  left: -95px;
   font-weight: bold;
 }
 

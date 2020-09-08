@@ -65,29 +65,29 @@ function App() {
     const slotCount = playerCount * slotsPerPlayer;
     const allocationOrder = shuffleInPlace([...Array(slotCount)].map((_, i) => i < playerCount ? i : i - playerCount));
     // What size is each window
-    const gameLength = 90;
+    const gameLength = 5400;
     const halfTime = gameLength / 2;
     const halfTimeEntry = { start: halfTime, end: halfTime, label: 'Half Time', type: 'marker' };
-    const windowMins = Math.round(gameLength / slotCount);
+    const windowSecs = Math.round(gameLength / slotCount);
     // Make the windows
     const windows = allocationOrder.reduce((windows, _, i) => {
-      return [...windows, { start: i * windowMins, end: (i + 1) * windowMins, type: 'allocation' }];
+      return [...windows, { start: i * windowSecs, end: (i + 1) * windowSecs, type: 'allocation' }];
     }, []);
     // Make sure the last window goes to the end
     windows[playerCount - 1].end = gameLength;
     // Allocate a player to each window
-    let allocations = windows.map((w, i) => Object.assign({}, w, { label: playerState[allocationOrder[i]].name }));
+    let allocations = windows.map((w, i) => ({ ...w, label: playerState[allocationOrder[i]].name }));
     // Split an allocation that crosses half-time
     const halfTimeAllocation = allocations.findIndex(a => a.start < halfTime && a.end> halfTime);
     if (~halfTimeAllocation) {
       const before = allocations.slice(0, halfTimeAllocation);
       const after = allocations.slice(halfTimeAllocation + 1);
-      const splitBefore = Object.assign({}, allocations[halfTimeAllocation], { end: halfTime, type: 'allocation split' });
-      const splitAfter = Object.assign({}, allocations[halfTimeAllocation], { start: halfTime, type: 'allocation split' });
+      const splitBefore = { ...allocations[halfTimeAllocation], end: halfTime, type: 'allocation split' };
+      const splitAfter = { ...allocations[halfTimeAllocation], start: halfTime, type: 'allocation split' };
       allocations = [...before, splitBefore, halfTimeEntry, splitAfter, ...after];
     } else {
       // Insert the halfTime entry
-      allocations = [...allocations.slice(0, allocations.length / 2), halfTimeEntry, ...allocations.slice(allocations.length)];
+      allocations = [...allocations.slice(0, allocations.length / 2), halfTimeEntry, ...allocations.slice(allocations.length / 2)];
     }
     setAllocationState(allocations);
   };
@@ -105,7 +105,15 @@ function App() {
     setDrawn(false);
   };
 
-  const asTime = x => `${(''+Math.floor(x/60)).padStart(2, '0')}:${(''+(x%60)).padStart(2, '0')}`;
+  const asTime = x => {
+    const h = Math.floor(x/(60*60));
+    const m = Math.floor((x-(h*60*60))/60);
+    const s = x - ((h*60*60) + (m*60));
+    debugger;
+    const pad = [h, m, s].map(v => (''+v).padStart(2, '0'));
+    return pad.join(':');
+  }
+    
 
   return (
     <div className="App">
