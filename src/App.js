@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import { ShuffleOutlined, PeopleOutlined, PersonAddOutlined, DoneOutline, HighlightOffOutlined } from '@material-ui/icons';
 import './App.css';
 import PlayerInput from './PlayerInput';
-import { ShuffleOutlined, PeopleOutlined, PersonAddOutlined, DoneOutline, HighlightOffOutlined } from '@material-ui/icons';
+import TimelineRow from './TimelineRow';
 
 const getLSOrDefault = (key, def) => {
   const lsValue = localStorage.getItem(key);
@@ -104,16 +105,7 @@ function App() {
   const onReset = () => {
     setDrawn(false);
   };
-
-  const asTime = x => {
-    const h = Math.floor(x/(60*60));
-    const m = Math.floor((x-(h*60*60))/60);
-    const s = x - ((h*60*60) + (m*60));
-    const pad = [h, m, s].map(v => (''+v).padStart(2, '0'));
-    return pad.join(':');
-  }
-    
-
+  
   return (
     <div className="App">
       <header className="App-header">
@@ -167,16 +159,7 @@ function App() {
               <>
                 <div className={'timeline'}><ul>
                   { allocationState.map(({ label, start, end, type }, idx) => 
-                      <li key={`player-${idx}`}>
-                        <div className={'line'}></div>
-                        <div className={'title'}>
-                          { `${label}` }
-                        </div>
-                        <div className={'number'}>
-                          <span>{ `${asTime(start)}` }</span>
-                          <span>{ `${asTime(end)}` }</span>
-                        </div>
-                      </li>
+                      <TimelineRow label={label} start={start} end={end} type={type} idx={idx} />
                     )
                   }
                 </ul></div>
