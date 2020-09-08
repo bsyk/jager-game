@@ -10,6 +10,19 @@ const asTime = x => {
 }
 
 const TimelineRow = ({ idx, label, start, end, type }) => {
+  if (type === 'marker') {
+    return (
+      <li key={`marker-${idx}`}>
+        <div className={'markertitle'}>
+          { `${label}` }
+        </div>
+        <div className={'markernumber'}>
+          <span>{ `${asTime(start)}` }</span>
+        </div>
+      </li>
+    );
+  }
+  
   return (
     <li key={`player-${idx}`}>
       <div className={'line'}></div>
@@ -27,8 +40,8 @@ const TimelineRow = ({ idx, label, start, end, type }) => {
 TimelineRow.propTypes = {
   idx: PropTypes.number,
   label: PropTypes.string,
-  start: PropTypes.string,
-  end: PropTypes.string,
+  start: PropTypes.number,
+  end: PropTypes.number,
   type: PropTypes.string,
 };
 

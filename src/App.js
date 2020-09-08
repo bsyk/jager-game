@@ -105,7 +105,7 @@ function App() {
   const onReset = () => {
     setDrawn(false);
   };
-  
+
   return (
     <div className="App">
       <header className="App-header">
@@ -159,7 +159,7 @@ function App() {
               <>
                 <div className={'timeline'}><ul>
                   { allocationState.map(({ label, start, end, type }, idx) => 
-                      <TimelineRow label={label} start={start} end={end} type={type} idx={idx} />
+                      <TimelineRow key={`row-${idx}`} label={label} start={start} end={end} type={type} idx={idx} />
                     )
                   }
                 </ul></div>
