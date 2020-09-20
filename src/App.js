@@ -76,7 +76,7 @@ function App() {
       return [...windows, { start: i * windowSecs, end: (i + 1) * windowSecs, type: 'allocation' }];
     }, []);
     // Make sure the last window goes to the end
-    windows[playerCount - 1].end = gameLength;
+    windows[slotCount - 1].end = gameLength;
     // Allocate a player to each window
     let allocations = windows.map((w, i) => ({ ...w, label: playerState[allocationOrder[i]].name }));
     // Split an allocation that crosses half-time
