@@ -24,12 +24,17 @@ const setLS = (key, value) => {
 function App() {
   const blankPlayer = { name: ''};
   const lastPlayers = getLSOrDefault('playerList', [{ ...blankPlayer },{ ...blankPlayer },{ ...blankPlayer }]);
-  const [playerState, setPlayerState] = useState(lastPlayers);
   const lastAllocations = getLSOrDefault('allocations', []);
+  const lastGameOptions = getLSOrDefault('gameOptions', { slotsPerPlayer: 2, gameLength: 5400 });
+  const lastViewOptions = getLSOrDefault('viewOptions', { minutes: false, surprise: false });
   const hasAllocations = !!lastAllocations.length;
+
+  const [playerState, setPlayerState] = useState(lastPlayers);
   const [allocationState, setAllocationState] = useState(lastAllocations);
   const [playerShowState, setPlayerShowState] = useState(!hasAllocations);
   const [isDrawn, setDrawn] = useState(hasAllocations);
+  const [gameOptions, setGameOptions] = useState(lastGameOptions);
+  const [viewOptions, setViewOptions] = useState(lastViewOptions);
 
   const onUpdatePlayerList = playerList => {
     setLS('playerList', playerList);
@@ -58,16 +63,27 @@ function App() {
     setPlayerShowState(true);
   };
 
+  const onSlotsChange = (e) => {
+    const newGameOptions = { ...gameOptions, slotsPerPlayer: parseInt(e.target.value) };
+    setLS('gameOptions', newGameOptions);
+    setGameOptions(newGameOptions);
+  };
+
+  const onLengthChange = (e) => {
+    const newGameOptions = { ...gameOptions, gameLength: parseInt(e.target.value) * 60 };
+    setLS('gameOptions', newGameOptions);
+    setGameOptions(newGameOptions);
+  };
+
   const onDraw = () => {
     setDrawn(true);
     // Shuffle and allocate slots
     // Create array of indexes that we can shuffle
     const playerCount = playerState.length;
-    const slotsPerPlayer = 2;
+    const { slotsPerPlayer, gameLength } = gameOptions;
     const slotCount = playerCount * slotsPerPlayer;
-    const allocationOrder = shuffleInPlace([...Array(slotCount)].map((_, i) => i < playerCount ? i : i - playerCount));
+    const allocationOrder = shuffleInPlace([...Array(slotCount)].map((_, i) => i % playerCount));
     // What size is each window
-    const gameLength = 5400;
     const halfTime = gameLength / 2;
     const halfTimeEntry = { start: halfTime, end: halfTime, label: 'Half Time', type: 'marker' };
     const windowSecs = Math.round(gameLength / slotCount);
@@ -149,6 +165,14 @@ function App() {
                 </p>
                 <div>
                   { playerState.map(player => player.name).join(', ') }
+                </div>
+                <div className={'buttonrow'}>
+                  <label for="slots">Slots per player: {gameOptions.slotsPerPlayer}</label>
+                  <input type="range" id="slots" min="1" max="3" value={gameOptions.slotsPerPlayer} onChange={onSlotsChange} className={'slider'} />
+                </div>
+                <div className={'buttonrow'}>
+                  <label for="len">Game length (mins) </label>
+                  <input type="number" id="len" min="1" step="1" value={gameOptions.gameLength/60} onChange={onLengthChange} className={'shortnumber'}/>
                 </div>
                 <div className={'buttonrow'}>
                   <button type="button" onClick={onEditPlayers}><PeopleOutlined /></button>

@@ -131,6 +131,10 @@ button {
   cursor: pointer;
 }
 
+label {
+  color: #fb673c;
+}
+
 .inputrow {
   display: flex;
   align-items: center;
@@ -151,4 +155,42 @@ button {
 
 .buttonrow {
   margin-top: 10px;
+}
+
+.shortnumber {
+  width: 10%;
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 60%;
+  height: 15px;
+  margin-top: 10px;
+  border-radius: 7px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.9;
+  transition: opacity .2s;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #fb673c;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #fb673c;
+  cursor: pointer;
 }
