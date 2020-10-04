@@ -157,8 +157,14 @@ label {
   margin-top: 10px;
 }
 
+.controlrow {
+  margin-top: 10px;
+  line-height: 34px;
+}
+
 .shortnumber {
   width: 10%;
+  height: 24px;
 }
 
 .slider {
@@ -194,3 +200,110 @@ label {
   background: #fb673c;
   cursor: pointer;
 }
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  margin-left: 14px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 34px;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.toggle:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  border-radius: 50%;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .toggle {
+  background-color: #fb673c;
+}
+
+input:focus + .toggle {
+  box-shadow: 0 0 1px #fb673c;
+}
+
+input:checked + .toggle:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+@keyframes bg {
+  100% {
+      background-size:  0 3px,
+                        3px 0,
+                        0 3px,
+                        3px 0;
+  }
+  75% {
+      background-size:  100% 3px,
+                        3px 0,
+                        0 3px,
+                        3px 0;
+  }
+  50% {
+      background-size:  100% 3px,
+                        3px 100%,
+                        0 3px,
+                        3px 0;
+  }
+  25% {
+      background-size:  100% 3px,
+                        3px 100%,
+                        100% 3px,
+                        3px 0;
+  }
+  0% {
+      background-size:  100% 3px,
+                        3px 100%,
+                        100% 3px,
+                        3px 100%;
+  }
+}
+
+.reveal {  
+  background-repeat: no-repeat;
+  background-image: linear-gradient(to right, #fb673c 100%, #fb673c 100%),
+                    linear-gradient(to bottom, #fb673c 100%, #fb673c 100%),
+                    linear-gradient(to right, #fb673c 100%, #fb673c 100%),
+                    linear-gradient(to bottom, #fb673c 100%, #fb673c 100%);
+  background-size:  100% 3px,
+                    3px 100%,
+                    100% 3px,
+                    3px 100%;
+  background-position:  0 0,
+                        100% 0,
+                        100% 100%,
+                        0 100%;
+  animation: bg 5s linear;
+  animation-play-state: running;
+}
+
+

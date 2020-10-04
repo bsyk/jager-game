@@ -75,6 +75,12 @@ function App() {
     setGameOptions(newGameOptions);
   };
 
+  const onSurpriseChange = (e) => {
+    const newViewOptions = { ...viewOptions, surprise: !!e.target.checked };
+    setLS('viewOptions', newViewOptions);
+    setViewOptions(newViewOptions);
+  };
+
   const onDraw = () => {
     setDrawn(true);
     // Shuffle and allocate slots
@@ -167,12 +173,19 @@ function App() {
                   { playerState.map(player => player.name).join(', ') }
                 </div>
                 <div className={'buttonrow'}>
-                  <label for="slots">Slots per player: {gameOptions.slotsPerPlayer}</label>
+                  <label htmlFor="slots">Slots per player: {gameOptions.slotsPerPlayer}</label>
                   <input type="range" id="slots" min="1" max="3" value={gameOptions.slotsPerPlayer} onChange={onSlotsChange} className={'slider'} />
                 </div>
-                <div className={'buttonrow'}>
-                  <label for="len">Game length (mins) </label>
+                <div className={'controlrow'}>
+                  <label htmlFor="len">Game length (mins) </label>
                   <input type="number" id="len" min="1" step="1" value={gameOptions.gameLength/60} onChange={onLengthChange} className={'shortnumber'}/>
+                </div>
+                <div className={'controlrow'}>
+                  <label>Surprise mode </label>
+                  <label className={"switch"}>
+                    <input type="checkbox" checked={viewOptions.surprise} onChange={onSurpriseChange} />
+                    <span className={"toggle"}></span>
+                  </label>
                 </div>
                 <div className={'buttonrow'}>
                   <button type="button" onClick={onEditPlayers}><PeopleOutlined /></button>
@@ -184,7 +197,7 @@ function App() {
               <>
                 <div className={'timeline'}><ul>
                   { allocationState.map(({ label, start, end, type }, idx) => 
-                      <TimelineRow key={`row-${idx}`} label={label} start={start} end={end} type={type} idx={idx} />
+                      <TimelineRow key={`row-${idx}`} label={label} start={start} end={end} type={type} idx={idx} surprise={viewOptions.surprise} />
                     )
                   }
                 </ul></div>
