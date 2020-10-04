@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const asTime = x => {
+const asClock = x => {
   const h = Math.floor(x/(60*60));
   const m = Math.floor((x-(h*60*60))/60);
   const s = x - ((h*60*60) + (m*60));
@@ -9,7 +9,13 @@ const asTime = x => {
   return pad.join(':');
 }
 
-const TimelineRow = ({ idx, label, start, end, type, surprise }) => {
+const asMinutes = x => {
+  const m = Math.floor(x/60);
+  const s = x - (m*60);
+  return `${m}m ${s}s`;
+}
+
+const TimelineRow = ({ idx, label, start, end, type, surprise, mode, onTimeClick }) => {
 
   const [reveal, setReveal] = useState(!surprise);
   let hideTimer = null;
@@ -25,6 +31,10 @@ const TimelineRow = ({ idx, label, start, end, type, surprise }) => {
     }
   };
 
+  const asTime = (seconds) => {
+    return mode === 'minutes' ? asMinutes(seconds) : asClock(seconds);
+  }
+
   if (type === 'marker') {
     return (
       <li key={`marker-${idx}`}>
@@ -32,7 +42,7 @@ const TimelineRow = ({ idx, label, start, end, type, surprise }) => {
           { `${label}` }
         </div>
         <div className={'markernumber'}>
-          <span>{ `${asTime(start)}` }</span>
+          <span onClick={onTimeClick}>{ `${asTime(start)}` }</span>
         </div>
       </li>
     );
@@ -45,8 +55,8 @@ const TimelineRow = ({ idx, label, start, end, type, surprise }) => {
         { `${reveal ? label : 'Tap to reveal'}` }
       </div>
       <div className={'number'}>
-        <span>{ `${asTime(start)}` }</span>
-        <span>{ `${asTime(end)}` }</span>
+        <span onClick={onTimeClick}>{ `${asTime(start)}` }</span>
+        <span onClick={onTimeClick}>{ `${asTime(end)}` }</span>
       </div>
     </li>
   );
@@ -59,6 +69,7 @@ TimelineRow.propTypes = {
   end: PropTypes.number,
   type: PropTypes.string,
   surprise: PropTypes.bool,
+  mode: PropTypes.string,
 };
 
 export default TimelineRow;

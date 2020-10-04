@@ -81,6 +81,12 @@ function App() {
     setViewOptions(newViewOptions);
   };
 
+  const onTimeClick = () => {
+    const newViewOptions = { ...viewOptions, minutes: !viewOptions.minutes };
+    setLS('viewOptions', newViewOptions);
+    setViewOptions(newViewOptions);
+  };
+
   const onDraw = () => {
     setDrawn(true);
     // Shuffle and allocate slots
@@ -197,7 +203,7 @@ function App() {
               <>
                 <div className={'timeline'}><ul>
                   { allocationState.map(({ label, start, end, type }, idx) => 
-                      <TimelineRow key={`row-${idx}`} label={label} start={start} end={end} type={type} idx={idx} surprise={viewOptions.surprise} />
+                      <TimelineRow key={`row-${idx}`} label={label} start={start} end={end} type={type} idx={idx} surprise={viewOptions.surprise} mode={viewOptions.minutes ? 'minutes' : 'clock'} onTimeClick={onTimeClick} />
                     )
                   }
                 </ul></div>
