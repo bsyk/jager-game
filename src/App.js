@@ -25,7 +25,7 @@ function App() {
   const blankPlayer = { name: ''};
   const lastPlayers = getLSOrDefault('playerList', [{ ...blankPlayer },{ ...blankPlayer },{ ...blankPlayer }]);
   const lastAllocations = getLSOrDefault('allocations', []);
-  const lastGameOptions = getLSOrDefault('gameOptions', { slotsPerPlayer: 2, gameLength: 5400 });
+  const lastGameOptions = getLSOrDefault('gameOptions', { slotsPerPlayer: 2, gameLength: 5400, perHalf: false });
   const lastViewOptions = getLSOrDefault('viewOptions', { minutes: false, surprise: false });
   const hasAllocations = !!lastAllocations.length;
 
@@ -75,6 +75,12 @@ function App() {
     setGameOptions(newGameOptions);
   };
 
+  const onPerHalfChange = (e) => {
+    const newGameOptions = { ...gameOptions, perHalf: !!e.target.checked };
+    setLS('gameOptions', newGameOptions);
+    setGameOptions(newGameOptions);
+  };
+
   const onSurpriseChange = (e) => {
     const newViewOptions = { ...viewOptions, surprise: !!e.target.checked };
     setLS('viewOptions', newViewOptions);
@@ -87,22 +93,35 @@ function App() {
     setViewOptions(newViewOptions);
   };
 
+  const makeAllocations = (playerCount, slotsPerPlayer, perHalf) => {
+    if (perHalf) {
+      // Shuffle players separately for each batch of slots, then concat
+      // to ensure that each player has a slot in each round.
+      return [...Array(slotsPerPlayer)].reduce((allocs) => 
+        [...allocs, ...shuffleInPlace([...Array(playerCount)].map((_, i) => i % playerCount))]
+      , []);
+    }
+    // Shuffle everything
+    const slotCount = playerCount * slotsPerPlayer;
+    return shuffleInPlace([...Array(slotCount)].map((_, i) => i % playerCount));
+  }
+
   const onDraw = () => {
     setDrawn(true);
     // Shuffle and allocate slots
     // Create array of indexes that we can shuffle
     const playerCount = playerState.length;
-    const { slotsPerPlayer, gameLength } = gameOptions;
+    const { slotsPerPlayer, gameLength, perHalf } = gameOptions;
     const slotCount = playerCount * slotsPerPlayer;
-    const allocationOrder = shuffleInPlace([...Array(slotCount)].map((_, i) => i % playerCount));
+    const allocationOrder = makeAllocations(playerCount, slotsPerPlayer, perHalf);
     // What size is each window
     const halfTime = gameLength / 2;
     const halfTimeEntry = { start: halfTime, end: halfTime, label: 'Half Time', type: 'marker' };
     const windowSecs = Math.round(gameLength / slotCount);
-    // Make the windows
-    const windows = allocationOrder.reduce((windows, _, i) => {
-      return [...windows, { start: i * windowSecs, end: (i + 1) * windowSecs, type: 'allocation' }];
-    }, []);
+    // Make the windows, use allocationOrder as a way to have the same length
+    const windows = allocationOrder.reduce((windows, _, i) => 
+      [...windows, { start: i * windowSecs, end: (i + 1) * windowSecs, type: 'allocation' }]
+    , []);
     // Make sure the last window goes to the end
     windows[slotCount - 1].end = gameLength;
     // Allocate a player to each window
@@ -182,6 +201,16 @@ function App() {
                   <label htmlFor="slots">Slots per player: {gameOptions.slotsPerPlayer}</label>
                   <input type="range" id="slots" min="1" max="3" value={gameOptions.slotsPerPlayer} onChange={onSlotsChange} className={'slider'} />
                 </div>
+                {
+                gameOptions.slotsPerPlayer > 1 && 
+                <div className={'controlrow'}>
+                  <label>Slot per round </label>
+                  <label className={"switch"}>
+                    <input type="checkbox" checked={gameOptions.perHalf} onChange={onPerHalfChange} />
+                    <span className={"toggle"}></span>
+                  </label>
+                </div>
+                }
                 <div className={'controlrow'}>
                   <label htmlFor="len">Game length (mins) </label>
                   <input type="number" id="len" min="1" step="1" value={gameOptions.gameLength/60} onChange={onLengthChange} className={'shortnumber'}/>
