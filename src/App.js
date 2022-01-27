@@ -69,8 +69,12 @@ function App() {
     if (window.location.hash) {
       try {
         const preHash = window.location.hash;
-        const [gameLength, playerNames, allocationOrder] = JSON.parse(Buffer.from(preHash, 'base64'));
+        const [gameLength, playerNames, allocationOrder, surpriseMode] = JSON.parse(Buffer.from(preHash, 'base64'));
         const slotCount = allocationOrder.length;
+        // Side effect - set the surprise mode to match the hash
+        if (viewOptions.surprise !== !!surpriseMode) {
+          setViewOptions({ ...viewOptions, surprise: !!surpriseMode });
+        }
         return { gameLength, playerNames, allocationOrder, slotCount };
       } catch (e) {
         console.error('Error decoding game', e);
@@ -190,6 +194,7 @@ function App() {
       gameLength,
       playerState.map(p => p.name),
       allocationOrder,
+      viewOptions.surprise,
     ])).toString('base64');
     window.location.hash = gameHash;
   };
