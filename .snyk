@@ -1,8 +1,26 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.19.0
+version: v1.25.0
 ignore: {}
 # patches apply the minimum changes required to fix a vulnerability
 patch:
   SNYK-JS-LODASH-567746:
     - react-scripts > eslint-plugin-testing-library > @typescript-eslint/experimental-utils > @typescript-eslint/typescript-estree > lodash:
         patched: '2021-02-23T18:25:48.575Z'
+    - '@testing-library/jest-dom > lodash':
+        patched: '2022-10-02T17:49:18.951Z'
+    - gh-pages > async > lodash:
+        patched: '2022-10-02T17:49:18.951Z'
+    - react-scripts > @typescript-eslint/eslint-plugin > lodash:
+        patched: '2022-10-02T17:49:18.951Z'
+    - react-scripts > eslint-plugin-flowtype > lodash:
+        patched: '2022-10-02T17:49:18.951Z'
+    - react-scripts > html-webpack-plugin > lodash:
+        patched: '2022-10-02T17:49:18.951Z'
+    - react-scripts > webpack-manifest-plugin > lodash:
+        patched: '2022-10-02T17:49:18.951Z'
+    - react-scripts > optimize-css-assets-webpack-plugin > last-call-webpack-plugin > lodash:
+        patched: '2022-10-02T17:49:18.951Z'
+    - react-scripts > webpack-dev-server > http-proxy-middleware > lodash:
+        patched: '2022-10-02T17:49:18.951Z'
+    - react-scripts > webpack-dev-server > portfinder > async > lodash:
+        patched: '2022-10-02T17:49:18.951Z'
