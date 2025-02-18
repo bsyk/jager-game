@@ -190,12 +190,12 @@ function App() {
     setAllocationState(allocations);
 
     // Create a minimal hash of the game state such that we can share and display it
-    const gameHash = Buffer.from(JSON.stringify([
+    const gameHash = btoa(JSON.stringify([
       gameLength,
       playerState.map(p => p.name),
       allocationOrder,
       viewOptions.surprise,
-    ])).toString('base64');
+    ]));
     window.location.hash = gameHash;
   };
 
